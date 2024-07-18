@@ -1,0 +1,19 @@
+import styles from './styles.module.css'
+
+export const Search = (props) => {
+  const {
+    keywords,
+    setKeywords
+  } = props;
+
+  return (
+    <div className={styles.search}>
+        <input
+            className={styles.input}
+            type='text'
+            value={keywords}
+            onChange={(e) => setKeywords(e.target.value)}
+        />
+    </div>
+  )
+}
