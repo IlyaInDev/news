@@ -1,6 +1,6 @@
 import { Skeleton } from "../../components/Skeleton/Skeleton";
 
-export function withSkeleton(Component, type, count) {
+export function withSkeleton(Component, type, count, direction) {
     return function WithSkeleton(props) {
         const {
             isLoading,
@@ -8,7 +8,7 @@ export function withSkeleton(Component, type, count) {
         } = props;
 
         if (isLoading) {
-            return <Skeleton type={type} count={count} />
+            return <Skeleton type={type} count={count} direction={direction} />
         }
 
         return <Component {...restProps} />
