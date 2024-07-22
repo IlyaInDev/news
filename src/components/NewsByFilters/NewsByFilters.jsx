@@ -1,5 +1,5 @@
-import { getNews } from "../../api/apiNews"
 import { PAGE_SIZE, TOTAL_PAGES } from "../../constants/constants"
+import { getNews } from "../../api/apiNews"
 import { useDebounce } from "../../helpers/hooks/useDebounce"
 import { useFetch } from "../../helpers/hooks/useFetch"
 import { useFilter } from "../../helpers/hooks/useFilter"
