@@ -9,6 +9,12 @@ export const Categories = (props) => {
 
   return (
     <div className={styles.categories}>
+        <button 
+                onClick={() => setSelectedCategory(null)}
+                className={ !selectedCategory ? styles.active : styles.category }
+            >
+                All
+        </button>
         {categories.map(category => (
             <button 
                 key={category}
