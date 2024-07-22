@@ -1,27 +1,16 @@
-import { getNews } from "../../api/apiNews"
-import { PAGE_SIZE, TOTAL_PAGES } from "../../constants/constants"
-import { useDebounce } from "../../helpers/hooks/useDebounce"
-import { useFetch } from "../../helpers/hooks/useFetch"
-import { useFilter } from "../../helpers/hooks/useFilter"
+import { TOTAL_PAGES } from "../../constants/constants"
 import { NewsFilters } from "../NewsFilters/NewsFilters"
 import { NewsListWithSkeleton } from "../NewsList/NewsList"
-import { PaginationWrapper } from "../PaginationWrapper/PaginationWrapper"
+import { Pagination } from "../Pagination/Pagination"
 import styles from './styles.module.css'
 
-export const NewsByFilters = () => {
-  const { filters, changeFilter } = useFilter({
-    page_number: 1,
-    page_size: PAGE_SIZE,
-    category: null,
-    keywords: ''
-  })
-
-  const debouncedKeywords = useDebounce(filters.keywords, 1000);
-
-  const { data: dataNews, isLoading } = useFetch(getNews, {
-    ...filters,
-    keywords: debouncedKeywords
-  });
+export const NewsByFilters = (props) => {
+  const {
+    news,
+    isLoading,
+    filters,
+    changeFilter
+  } = props;
 
 
   const handleNextPage = () => {
@@ -47,20 +36,26 @@ export const NewsByFilters = () => {
             changeFilter={changeFilter}
         />
 
-        <PaginationWrapper
-            top
-            bottom
+        <Pagination
             currentPage={filters.page_number}
             totalPages={TOTAL_PAGES}
             handleNextPage={handleNextPage}
             handlePreviousPage={handlePreviousPage}
             handlePageClick={handlePageClick}
-        >
-            <NewsListWithSkeleton
-                isLoading={isLoading}
-                news={dataNews?.news}
-            />
-        </PaginationWrapper>
+        />
+
+        <NewsListWithSkeleton
+            isLoading={isLoading}
+            news={news}
+        />
+
+        <Pagination
+            currentPage={filters.page_number}
+            totalPages={TOTAL_PAGES}
+            handleNextPage={handleNextPage}
+            handlePreviousPage={handlePreviousPage}
+            handlePageClick={handlePageClick}
+        />
     </section>
   )
 }
