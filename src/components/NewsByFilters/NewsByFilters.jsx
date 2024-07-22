@@ -1,16 +1,27 @@
-import { TOTAL_PAGES } from "../../constants/constants"
+import { getNews } from "../../api/apiNews"
+import { PAGE_SIZE, TOTAL_PAGES } from "../../constants/constants"
+import { useDebounce } from "../../helpers/hooks/useDebounce"
+import { useFetch } from "../../helpers/hooks/useFetch"
+import { useFilter } from "../../helpers/hooks/useFilter"
 import { NewsFilters } from "../NewsFilters/NewsFilters"
 import { NewsListWithSkeleton } from "../NewsList/NewsList"
-import { Pagination } from "../Pagination/Pagination"
+import { PaginationWrapper } from "../PaginationWrapper/PaginationWrapper"
 import styles from './styles.module.css'
 
-export const NewsByFilters = (props) => {
-  const {
-    news,
-    isLoading,
-    filters,
-    changeFilter
-  } = props;
+export const NewsByFilters = () => {
+  const { filters, changeFilter } = useFilter({
+    page_number: 1,
+    page_size: PAGE_SIZE,
+    category: null,
+    keywords: ''
+  })
+
+  const debouncedKeywords = useDebounce(filters.keywords, 1000);
+
+  const { data: dataNews, isLoading } = useFetch(getNews, {
+    ...filters,
+    keywords: debouncedKeywords
+  });
 
 
   const handleNextPage = () => {
@@ -36,26 +47,20 @@ export const NewsByFilters = (props) => {
             changeFilter={changeFilter}
         />
 
-        <Pagination
+        <PaginationWrapper
+            top
+            bottom
             currentPage={filters.page_number}
             totalPages={TOTAL_PAGES}
             handleNextPage={handleNextPage}
             handlePreviousPage={handlePreviousPage}
             handlePageClick={handlePageClick}
-        />
-
-        <NewsListWithSkeleton
-            isLoading={isLoading}
-            news={news}
-        />
-
-        <Pagination
-            currentPage={filters.page_number}
-            totalPages={TOTAL_PAGES}
-            handleNextPage={handleNextPage}
-            handlePreviousPage={handlePreviousPage}
-            handlePageClick={handlePageClick}
-        />
+        >
+            <NewsListWithSkeleton
+                isLoading={isLoading}
+                news={dataNews?.news}
+            />
+        </PaginationWrapper>
     </section>
   )
 }
