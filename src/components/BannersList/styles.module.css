@@ -6,3 +6,9 @@
     max-height: 1200px;
     overflow-y: auto;
 }
+
+@media screen and (max-width: 768px) {
+    .banners {
+        max-height: none;
+    }
+}
