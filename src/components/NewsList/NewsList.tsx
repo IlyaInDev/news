@@ -1,8 +1,15 @@
 import { withSkeleton } from '../../helpers/hoc/withSkeleton'
+import { INews } from '../../interfaces'
 import { NewsItem } from '../NewsItem/NewsItem'
 import styles from './styles.module.css'
 
-const NewsList = ({ news }) => {
+interface Props {
+    news?: INews[];
+}
+
+const NewsList = (props: Props) => {
+  const { news } = props;
+
   return (
     <ul className={styles.list}>
         {news?.map(item => (
@@ -12,4 +19,4 @@ const NewsList = ({ news }) => {
   )
 }
 
-export const NewsListWithSkeleton = withSkeleton(NewsList, 'item', 10);
+export const NewsListWithSkeleton = withSkeleton<Props>(NewsList, 'item', 10);
