@@ -1,8 +1,15 @@
 import { withSkeleton } from "../../helpers/hoc/withSkeleton"
+import { INews } from "../../interfaces"
 import { NewsBanner } from "../NewsBanner/NewsBanner"
 import styles from './styles.module.css'
 
-const BannersList = ({ banners }) => {
+interface Props {
+    banners?: INews[];
+}
+
+const BannersList = (props: Props) => {
+  const { banners } = props;
+
   return (
     <div className={styles.banners}>
         {banners?.map(banner => (
