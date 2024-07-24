@@ -4,6 +4,14 @@
     display: flex;
 }
 
+.light {
+    background-color: white;
+}
+  
+.dark {
+    background-color: #23272f;
+}
+
 .input {
     padding: 10px;
     border: 1px solid #f2f3f5;
