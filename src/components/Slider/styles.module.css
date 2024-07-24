@@ -7,6 +7,14 @@
 
 .arrow {
     border: none;
-    background-color: #fff;
     cursor: pointer;
+}
+
+.slider.dark .arrow {
+    background-color: #23272f;
+    color: #fff;
+}
+
+.slider.light .arrow {
+    background-color: #fff;
 }
