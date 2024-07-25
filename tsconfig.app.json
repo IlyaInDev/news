@@ -8,6 +8,10 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
 
     /* Bundler mode */
     "moduleResolution": "Node",
@@ -24,5 +28,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src", "shared/interfaces/vite-env.d.ts"]
 }
