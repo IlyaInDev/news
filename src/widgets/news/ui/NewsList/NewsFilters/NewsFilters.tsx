@@ -1,24 +1,31 @@
-import { useAppDispatch, useAppSelector } from '@/app/appStore';
+import { useAppDispatch } from '@/app/appStore';
 import { Categories } from '@/features/category/ui/Categories/Categories';
 import { Search } from '@/features/search/ui/Search/Search';
 import { Slider } from '@/features/slider/ui/Slider/Slider';
 import { CategoriesType } from '@/entities/category';
-import { useGetCategoriesQuery } from '@/entities/category/api/categoriesApi';
 import { newsActions } from '@/entities/news/model/newsSlice';
-import styles from './styles.module.css'
+import { IFilter } from '@/shared/interfaces';
+import styles from './styles.module.css';
 
-export const NewsFilters = () => {
+interface Props {
+    filters: IFilter;
+    categories: CategoriesType[];
+}
+
+export const NewsFilters = (props: Props) => {
+  const {
+    filters,
+    categories
+  } = props;
+
   const dispatch = useAppDispatch();
-  const filters = useAppSelector(state => state.news.filters);
-
-  const { data: dataCategories } = useGetCategoriesQuery(null);
 
   return (
     <div className={styles.filters}>
-        {dataCategories ? (
+        {categories ? (
             <Slider>
                 <Categories
-                    categories={dataCategories.categories}
+                    categories={categories}
                     selectedCategory={filters.category}
                     setSelectedCategory={(category: CategoriesType | null) => 
                         dispatch(newsActions.setFilters({ key: 'category', value: category }))
