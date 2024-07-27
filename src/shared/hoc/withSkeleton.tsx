@@ -4,17 +4,19 @@ import { SkeletonDirection, SkeletonType } from "../interfaces";
 
 export interface Props {
     isLoading: boolean;
+    type?: SkeletonType;
+    direction?: SkeletonDirection;
 }
 
 export function withSkeleton<P extends object>(
     Component: ComponentType<P>,
-    type?: SkeletonType,
     count?: number, 
-    direction?: SkeletonDirection
 ) {
     return function WithSkeleton(props: Props & P) {
         const {
             isLoading,
+            type,
+            direction,
             ...restProps
         } = props;
 
@@ -22,6 +24,6 @@ export function withSkeleton<P extends object>(
             return <Skeleton type={type} count={count} direction={direction} />
         }
 
-        return <Component {...(restProps as P)} />
+        return <Component type={type} {...(restProps as P)} />
     }
 }
