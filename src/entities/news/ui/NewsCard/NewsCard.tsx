@@ -1,15 +1,17 @@
 import { formatTimeAgo } from '@/shared/helpers/formatTimeAgo';
 import { INews } from '../../model/types';
 import { Image } from '@/shared/ui/Image/Image';
+import { ReactNode } from 'react';
 import styles from './styles.module.css'
 
 interface Props {
     item: INews;
     type?: 'banner' | 'item';
+    viewNewsSlot?: (news: INews) => ReactNode;
 }
 
 export const NewsCard = (props: Props) => {
-  const { item, type = 'item' } = props;
+  const { item, type = 'item', viewNewsSlot } = props;
 
   return (
     <li className={`${styles.card} ${type === 'banner' && styles.banner}`}>
@@ -24,6 +26,7 @@ export const NewsCard = (props: Props) => {
                 {formatTimeAgo(item?.published)} by {item?.author}
             </p>
         </div>
+        {viewNewsSlot ? viewNewsSlot(item) : null}
     </li>
   )
 }

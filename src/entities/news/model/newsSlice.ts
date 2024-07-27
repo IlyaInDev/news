@@ -5,12 +5,14 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { INews } from './types';
 
 export interface State {
-  news: INews[]
+  news: INews[];
+  currentNews: INews | null;
   filters: IFilter;
 }
 
 const initialState: State = {
   news: [],
+  currentNews: null,
   filters: {
     page_number: 1,
     page_size: PAGE_SIZE,
@@ -25,6 +27,9 @@ export const newsSlice = createSlice({
   reducers: {
     setNews: (state, action: PayloadAction<INews[]>) => {
       state.news = action.payload;
+    },
+    setCurrentNews: (state, action: PayloadAction<INews | null>) => {
+        state.currentNews = action.payload;
     },
     setFilters: (state, action: PayloadAction<{key: string, value: string | number | null}>) => {
         const { key, value } = action.payload;
