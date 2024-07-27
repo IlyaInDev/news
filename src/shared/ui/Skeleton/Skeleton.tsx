@@ -10,7 +10,7 @@ interface Props {
 export const Skeleton = (props: Props) => {
   const { 
     count = 1,
-    type = 'banner',
+    type = 'item',
     direction='column'
   } = props;
 

@@ -1,4 +1,2 @@
-export { NewsBanner } from "./ui/NewsBanner/NewsBanner";
-export { NewsItem } from "./ui/NewsItem/NewsItem";
-
+export { NewsCard } from "./ui/NewsCard/NewsCard";
 export type { INews, NewsApiResponse } from "./model/types";
